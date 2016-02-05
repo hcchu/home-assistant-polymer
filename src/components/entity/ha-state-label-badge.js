@@ -64,7 +64,11 @@ export default new Polymer({
       case 'alarm_control_panel':
         return undefined;
       case 'sensor':
-        return state.state;
+        if (state.entityId === 'sensor.weather_icon') {
+            return undefined;
+        } else {
+            return state.state;
+            }
       default:
         return state.state;
     }
@@ -91,6 +95,34 @@ export default new Polymer({
       case 'sun':
         return state.state === 'above_horizon' ?
         domainIcon(state.domain) : 'mdi:brightness-3';
+      case 'sensor':
+        if (state.entityId === 'sensor.weather_icon') {
+            if (state.state === 'clear-day') {
+                return 'mdi:weather-sunny';
+            } else if (state.state === 'clear-night') {
+                return 'mdi:weather-night';
+            } else if (state.state === 'rain') {
+                return 'mdi:weather-rainy';
+            } else if (state.state === 'snow') {
+                return 'mdi:weather-snowy';
+            } else if (state.state === 'sleet') {
+                return 'mdi:weather-snowy';
+            } else if (state.state === 'wind') {
+                return 'mdi:weather-windy';
+            } else if (state.state === 'fog') {
+                return 'mdi:weather-cloudy';
+            } else if (state.state === 'cloudy') {
+                return 'mdi:weather-cloudy';
+            } else if (state.state === 'partly-cloudy-day') {
+                return 'mdi:weather-partlycloudy';
+            } else if (state.state === 'partly-cloudy-night') {
+                return 'mdi:weather-partlycloudy';
+            }
+        }
+        else {
+            return undefined;
+        }
+
       default:
         return undefined;
     }

@@ -43,6 +43,7 @@ export default function domainIcon(domain, state) {
 
       return icon;
 
+    case 'forecast':
     case 'notify':
       return 'mdi:comment-alert';
 
@@ -59,7 +60,14 @@ export default function domainIcon(domain, state) {
       return 'mdi:file-document';
 
     case 'sensor':
-      return 'mdi:eye';
+      switch (state) {
+          case 'clear-day':
+              return 'mdi:weather-sunny';
+          case 'clear-night':
+              return 'mdi:weather-night';
+          default:
+              return 'mdi:eye';
+      }
 
     case 'simple_alarm':
       return 'mdi:bell';

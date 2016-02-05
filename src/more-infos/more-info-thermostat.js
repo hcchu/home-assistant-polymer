@@ -44,6 +44,20 @@ export default new Polymer({
     return attributeClassNames(stateObj, ATTRIBUTE_CLASSES);
   },
 
+  targetTemperatureIncrement() {
+    serviceActions.callService('thermostat', 'set_temperature', {
+      entity_id: this.stateObj.entityId,
+      temperature: (this.stateObj.attributes.temperature + 1),
+    });
+  },
+
+  targetTemperatureDecrement() {
+    serviceActions.callService('thermostat', 'set_temperature', {
+      entity_id: this.stateObj.entityId,
+      temperature: (this.stateObj.attributes.temperature - 1),
+    });
+  },
+
   targetTemperatureSliderChanged(ev) {
     serviceActions.callService('thermostat', 'set_temperature', {
       entity_id: this.stateObj.entityId,

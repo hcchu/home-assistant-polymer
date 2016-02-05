@@ -1,11 +1,13 @@
 <link rel='import' href='../../bower_components/polymer/polymer.html'>
 <link rel='import' href='../../bower_components/paper-slider/paper-slider.html'>
+<link rel='import' href='../../bower_components/paper-fab/paper-fab.html'>
 <link rel='import' href='../../bower_components/paper-toggle-button/paper-toggle-button.html'>
 
 <dom-module id='more-info-thermostat'>
   <style>
     paper-slider {
       width: 100%;
+      --paper-slider-height: 6px;
     }
 
     .away-mode-toggle {
@@ -16,17 +18,38 @@
     .has-away_mode .away-mode-toggle {
       display: block;
     }
+
+    .temperature {
+      font-family: 'Roboto', 'Noto', sans-serif;
+      font-weight: 900;
+      font-size: 60px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+
   </style>
   <template>
     <div class$='[[computeClassNames(stateObj)]]'>
       <div>
+
         <div>Target Temperature</div>
         <paper-slider
-          min='[[tempMin]]' max='[[tempMax]]' step='0.5'
+          min='[[tempMin]]' max='[[tempMax]]' step='1'
           value='[[targetTemperatureSliderValue]]' pin
           on-change='targetTemperatureSliderChanged'>
         </paper-slider>
       </div>
+
+    <!-- div class="layout justified center horizontal">
+			<span></span>
+            <span><paper-fab icon="mdi:arrow-down-bold"
+					on-tap='targetTemperatureDecrement'></paper-fab></span>
+            <span><div class="temperature">[[targetTemperatureSliderValue]]</div></span>
+            <span><paper-fab icon="mdi:arrow-up-bold"
+					on-tap='targetTemperatureIncrement'></paper-fab></span>
+			<span></span>
+    </div -->
 
       <div class='away-mode-toggle'>
         <div class='center horizontal layout'>
@@ -36,5 +59,6 @@
         </div>
       </div>
     </div>
+<br>
   </template>
 </dom-module>
