@@ -27,11 +27,12 @@ function getPriority(domain) {
 }
 
 function entitySortBy(entity) {
-  return entity.entityDisplay.toLowerCase();
+  return entity.domain === 'group' ? entity.attributes.order :
+                                     entity.entityDisplay.toLowerCase();
 }
 
 export default new Polymer({
-  is: 'ha-zone-cards',
+  is: 'ha-cards',
 
   properties: {
     showIntroduction: {
@@ -50,11 +51,11 @@ export default new Polymer({
 
     cards: {
       type: Object,
-      computed: 'computeDomains(columns, states, showIntroduction)',
+      computed: 'computeCards(columns, states, showIntroduction)',
     },
   },
 
-  computeDomains(columns, states, showIntroduction) {
+  computeCards(columns, states, showIntroduction) {
     const byDomain = states.groupBy(entity => entity.domain);
     const hasGroup = {};
 
@@ -101,7 +102,7 @@ export default new Polymer({
             cards._badges, filterGrouped(byDomain.get(domain)).sortBy(
               entitySortBy).toArray());
         } else if (domain === 'group') {
-          byDomain.get(domain).filter(st => !st.attributes.auto).sortBy(entitySortBy)
+          byDomain.get(domain).sortBy(entitySortBy)
             .forEach(groupState => {
               const entities = util.expandGroup(groupState, states);
               entities.forEach(entity => hasGroup[entity.entityId] = true);

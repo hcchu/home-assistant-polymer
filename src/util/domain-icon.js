@@ -5,6 +5,9 @@ export default function domainIcon(domain, state) {
     case 'alarm_control_panel':
       return state && state === 'disarmed' ? 'mdi:bell-outline' : 'mdi:bell';
 
+    case 'automation':
+      return 'mdi:playlist-play';
+
     case 'binary_sensor':
       return state && state === 'off' ? 'mdi:radiobox-blank' : 'mdi:checkbox-marked-circle';
 
@@ -47,9 +50,6 @@ export default function domainIcon(domain, state) {
     case 'notify':
       return 'mdi:comment-alert';
 
-    case 'updater':
-      return 'mdi:cloud-upload';
-
     case 'rollershutter':
       return state && state === 'open' ? 'mdi:window-open' : 'mdi:window-closed';
 
@@ -80,6 +80,12 @@ export default function domainIcon(domain, state) {
 
     case 'thermostat':
       return 'mdi:nest-thermostat';
+
+    case 'updater':
+      return 'mdi:cloud-upload';
+
+    case 'weblink':
+      return 'mdi:open-in-new';
 
     default:
     /* eslint-disable no-console */

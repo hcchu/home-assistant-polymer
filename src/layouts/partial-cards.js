@@ -4,11 +4,12 @@ import Polymer from '../polymer';
 import nuclearObserver from '../util/bound-nuclear-behavior';
 
 require('./partial-base');
-require('../components/ha-zone-cards');
+require('../components/ha-cards');
 
 const {
   configGetters,
-  entityGetters,
+  viewActions,
+  viewGetters,
   voiceGetters,
   streamGetters,
   syncGetters,
@@ -17,7 +18,7 @@ const {
 } = hass;
 
 export default new Polymer({
-  is: 'partial-zone',
+  is: 'partial-cards',
 
   behaviors: [nuclearObserver],
 
@@ -62,9 +63,32 @@ export default new Polymer({
       observer: 'windowChange',
     },
 
+    currentView: {
+      type: String,
+      bindNuclear: [
+        viewGetters.currentView,
+        view => view || '',
+      ],
+    },
+
+    views: {
+      type: Array,
+      bindNuclear: [
+        viewGetters.views,
+        views => views.valueSeq()
+                    .sortBy(view => view.attributes.order)
+                    .toArray(),
+      ],
+    },
+
+    hasViews: {
+      type: Boolean,
+      computed: 'computeHasViews(views)',
+    },
+
     states: {
       type: Object,
-      bindNuclear: entityGetters.visibleEntityMap,
+      bindNuclear: viewGetters.currentViewEntities,
     },
 
     columns: {
@@ -103,16 +127,8 @@ export default new Polymer({
     voiceActions.listen();
   },
 
-  computeDomains(states) {
-    return states.keySeq().toArray();
-  },
-
   computeMenuButtonClass(narrow, showMenu) {
     return !narrow && showMenu ? 'invisible' : '';
-  },
-
-  computeStatesOfDomain(states, domain) {
-    return states.get(domain).toArray();
   },
 
   computeRefreshButtonClass(isFetching) {
@@ -121,11 +137,23 @@ export default new Polymer({
     }
   },
 
-  computeShowIntroduction(introductionLoaded, states) {
-    return introductionLoaded || states.size === 0;
+  computeShowIntroduction(currentView, introductionLoaded, states) {
+    return currentView === '' && (introductionLoaded || states.size === 0);
+  },
+
+  computeHasViews(views) {
+    return views.length > 0;
   },
 
   toggleMenu() {
     this.fire('open-menu');
+  },
+
+  viewSelected(ev) {
+    const view = ev.detail.item.getAttribute('data-entity') || null;
+    const current = this.currentView || null;
+    if (view !== current) {
+      this.async(() => viewActions.selectView(view), 0);
+    }
   },
 });
