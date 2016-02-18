@@ -8,6 +8,7 @@ const DOMAINS_WITH_CARD = [
   'scene',
   'thermostat',
   'weblink',
+  'calendar',
 ];
 
 export default function stateCardType(state) {

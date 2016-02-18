@@ -12,6 +12,7 @@ require('./more-info-media_player');
 require('./more-info-camera');
 require('./more-info-updater');
 require('./more-info-alarm_control_panel');
+require('./more-info-lock');
 
 export default new Polymer({
   is: 'more-info-content',
@@ -54,7 +55,7 @@ export default new Polymer({
         root.removeChild(root.lastChild);
       }
 
-      const moreInfo = document.createElement('more-info-' + newMoreInfoType);
+      const moreInfo = document.createElement(`more-info-${newMoreInfoType}`);
       moreInfo.stateObj = newVal;
       moreInfo.dialogOpen = this.dialogOpen;
       root.appendChild(moreInfo);

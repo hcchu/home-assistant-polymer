@@ -23,6 +23,9 @@ export default function domainIcon(domain, state) {
     case 'device_tracker':
       return 'mdi:account';
 
+    case 'garage_door':
+      return 'mdi:glassdoor';
+
     case 'group':
       return 'mdi:google-circles-communities';
 
@@ -39,16 +42,15 @@ export default function domainIcon(domain, state) {
       return state && state === 'unlocked' ? 'mdi:lock-open' : 'mdi:lock';
 
     case 'media_player':
-      let icon = 'mdi:cast';
-      if (state && state !== 'off' && state !== 'idle') {
-        icon += '-connected';
-      }
-
-      return icon;
+      return state && state !== 'off' && state !== 'idle' ?
+        'mdi:cast-connected' : 'mdi:cast';
 
     case 'forecast':
     case 'notify':
       return 'mdi:comment-alert';
+
+    case 'proximity':
+      return 'mdi:apple-safari';
 
     case 'rollershutter':
       return state && state === 'open' ? 'mdi:window-open' : 'mdi:window-closed';
