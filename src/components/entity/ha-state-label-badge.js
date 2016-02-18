@@ -62,14 +62,11 @@ export default new Polymer({
       case 'alarm_control_panel':
         return null;
       case 'sensor':
-<<<<<<< HEAD
         if (state.entityId === 'sensor.weather_icon') {
             return undefined;
         } else {
             return state.state;
             }
-=======
->>>>>>> upstream/master
       default:
         return state.state === 'unknown' ? '-' : state.state;
     }
