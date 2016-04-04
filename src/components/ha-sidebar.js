@@ -26,10 +26,13 @@ export default new Polymer({
       type: String,
     },
 
+    narrow: {
+      type: Boolean,
+    },
+
     selected: {
       type: String,
       bindNuclear: navigationGetters.activePane,
-      observer: 'selectedChanged',
     },
 
     hasHistoryComponent: {
@@ -43,20 +46,8 @@ export default new Polymer({
     },
   },
 
-  selectedChanged(newVal) {
-    if (document.activeElement) {
-      document.activeElement.blur();
-    }
-
-    const menuItems = this.querySelectorAll('.menu [data-panel]');
-
-    for (let idx = 0; idx < menuItems.length; idx++) {
-      if (menuItems[idx].getAttribute('data-panel') === newVal) {
-        menuItems[idx].classList.add('selected');
-      } else {
-        menuItems[idx].classList.remove('selected');
-      }
-    }
+  menuSelect() {
+    this.debounce('updateStyles', () => this.updateStyles(), 1);
   },
 
   menuClicked(ev) {
@@ -74,12 +65,6 @@ export default new Polymer({
     }
   },
 
-  handleDevClick(ev) {
-    // prevent it from highlighting first menu item
-    document.activeElement.blur();
-    this.menuClicked(ev);
-  },
-
   toggleMenu() {
     this.fire('close-menu');
   },
@@ -92,6 +77,7 @@ export default new Polymer({
       return;
     }
     navigationActions.navigate.apply(null, newChoice.split('/'));
+    this.debounce('updateStyles', () => this.updateStyles(), 1);
   },
 
   handleLogOut() {

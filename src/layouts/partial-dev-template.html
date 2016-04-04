@@ -8,6 +8,7 @@
 <link rel="import" href="../components/services-list.html">
 
 <dom-module id="partial-dev-template">
+  <style is="custom-style" include="iron-flex iron-positioning"></style>
   <style>
     .content {
       margin-top: 64px;
@@ -22,8 +23,12 @@
       margin-right: 16px;
     }
 
+    .edit-pane a {
+      color: var(--dark-primary-color);
+    }
+
     .horizontal .edit-pane {
-      max-width: 50%;      
+      max-width: 50%;
     }
 
     .render-pane {
@@ -56,7 +61,7 @@
           </p>
             <ul>
               <li><a href='http://jinja.pocoo.org/docs/dev/templates/' target='_blank'>Jinja2 tempate documentation</a></li>
-              <li><a href='https://home-assistant.io/getting-started/templating/' target='_blank'>Home Assistant template extensions</a></li>
+              <li><a href='https://home-assistant.io/topics/templating/' target='_blank'>Home Assistant template extensions</a></li>
             </ul>
           </p>
           <paper-textarea label="Template" value='{{template}}'></paper-textarea>

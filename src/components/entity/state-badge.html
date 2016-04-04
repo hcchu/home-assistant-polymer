@@ -27,6 +27,11 @@
   ha-state-icon[data-domain=sun][data-state=above_horizon] {
     color: #DCC91F;
   }
+
+  /* Color the icon if unavailable */
+  ha-state-icon[data-state=unavailable] {
+    color: var(--disabled-text-color);
+  }
   </style>
 
   <template>
