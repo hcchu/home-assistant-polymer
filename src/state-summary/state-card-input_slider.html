@@ -13,8 +13,8 @@
 
   <template>
     <div class='horizontal justified layout'>
-      <state-info state-obj="[[stateObj]]"></state-info>
-      <paper-slider min='[[min]]' max='[[max]]' value='{{value}}' step='[[step]]' on-change='selectedValueChanged'>
+      <state-info state-obj="[[stateObj]]" in-dialog='[[inDialog]]'></state-info>
+      <paper-slider min='[[min]]' max='[[max]]' value='{{value}}' step='[[step]]' pin on-change='selectedValueChanged'>
       </paper-slider>
     </div>
   </template>
