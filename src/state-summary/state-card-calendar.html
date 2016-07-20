@@ -1,0 +1,77 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- link rel="import" href="../components/state-info.html" -->
+
+<dom-module id="state-card-calendar">
+  <style>
+  :host {
+    line-height: 1.5;
+  }
+
+  .state {
+    margin-left: 16px;
+    text-align: right;
+    overflow-x: hidden;
+  }
+
+  .target {
+    text-transform: capitalize;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .datetime {
+    margin-left: 16px;
+    font-weight: 400;
+    float: left;
+    text-align: left;
+  }
+    
+  .calendar-icon {
+    color: var(--secondary-text-color);
+  }
+    
+  .event {
+    color: var(--secondary-text-color);
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    float: right;
+    margin-left: 50px;
+    text-align: right;
+  }
+
+  .test {
+    text-align: right;
+    vertical-align: middle;
+  }
+
+   
+  </style>
+  <template>
+    <div class='horizontal justified layout'>
+      <state-info state-obj="[[stateObj]]"></state-info>
+      <div class='target'>
+        <span>[[stateObj.state]]</span>
+        <span> </span>
+      </div>
+    </div>
+    <div class='test'>
+    <template is="dom-repeat" items={{stateObj.attributes.events}} as="e">
+    <div class='horizontal layout'>
+        <div class='datetime'>
+            <span class='calendar-icon'><iron-icon icon='mdi:calendar'></iron-icon> </span>
+        <span> </span>
+        <span> </span>
+          <relative-ha-datetime datetime-obj='[[e.start]]'></relative-ha-datetime>
+        <span> </span>
+        <span> </span>
+        <div class='event'>[[e.summary]]</div>
+        </div>
+     </div>
+    </template>
+     </div>
+  </template>
+</dom-module>
